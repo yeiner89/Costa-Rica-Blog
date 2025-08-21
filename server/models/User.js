@@ -1,21 +1,10 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
-
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
+// server/models/User.js
+const mongoose = require('mongoose');
+const schema = new mongoose.Schema({
+  name: { type:String, required:true },
+  email:{ type:String, required:true, unique:true, index:true },
+  passwordHash:String,
+  provider:{ type:String, enum:['local','google'], default:'local' },
+  createdAt:{ type:Date, default:Date.now }
 });
-
-userSchema.methods.matchPasswords = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
-
-const User = mongoose.model("User", userSchema);
-export default User;
+module.exports = mongoose.model('User', schema);
