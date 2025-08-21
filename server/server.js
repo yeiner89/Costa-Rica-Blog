@@ -1,10 +1,16 @@
-import dotenv from "dotenv";
+import dotenv from "dotenv";    
 import db from "./db.js";
 import express from "express";
 import path from "path";
 
+
 import blogPostRoutes from "./routes/blogPostRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
+import userRoutes from "./rou
+
+
+  
+  tes/userRoutes.js";
+
 
 //Our Routes
 
@@ -22,10 +28,12 @@ app.use(
 );
 
 app.use("/api/blog-posts/", blogPostRoutes);
+
 app.use("/api/users", userRoutes);
 
 app.get("/api/config/emailjs", (req, res) =>
   res.send({
+    
     template_id: process.env.TEMPLATE_ID,
     service_id: process.env.SERVICE_ID,
     public_key: process.env.PUBLIC_KEY,
@@ -46,3 +54,11 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server runs on port ${port}.`);
 });
+
+
+
+import commentRoutes from "./routes/commentRoutes.js";
+import likeRoutes from "./routes/likeRoutes.js";
+
+app.use("/api/comments", commentRoutes);
+app.use("/api/likes", likeRoutes);
